@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- ✏️ EDIT: page title and description (shown in Google and link previews) -->
+<title>Gaius Soetan (SG) · AI solutions developer, Manchester</title>
+<meta name="description" content="I'm SG, an AI solutions developer in Manchester. I build AI chatbots and practical AI tools for real businesses, and the governance that keeps them trustworthy.">
+<meta property="og:title" content="Gaius Soetan (SG) · AI solutions developer">
+<meta property="og:description" content="AI chatbots, practical AI for business, and responsible AI governance.">
+<meta property="og:type" content="website">
+<!-- ✏️ EDIT: once deployed, add your Netlify URL and a preview image -->
+<!-- <meta property="og:url" content="https://your-site.netlify.app"> -->
+<!-- <meta property="og:image" content="https://your-site.netlify.app/sg-photo.jpg"> -->
+<meta name="theme-color" content="#0F1626">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230F1626'/><text x='50%' y='58%' text-anchor='middle' font-family='Arial' font-weight='800' font-size='28' fill='%23F4B13E'>SG</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   DESIGN TOKENS
+   One accent: marigold. Change --accent to rebrand the site.
+   ========================================================= */
+:root{
+  --ink:#0F1626;        /* page background, deep navy */
+  --ink-2:#162036;      /* raised surfaces */
+  --ink-3:#1E2A45;      /* hover surfaces */
+  --line:#2B3754;       /* borders */
+  --paper:#EEE9DF;      /* main text */
+  --muted:#A7AFC2;      /* secondary text */
+  --accent:#F4B13E;     /* marigold accent */
+  --accent-soft:rgba(244,177,62,.14);
+
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Newsreader", Georgia, "Times New Roman", serif;
+
+  --wrap:1180px;
+  --gutter:clamp(20px,5vw,56px);
+  --section:clamp(88px,12vw,160px);
+  --radius-lg:28px;
+  --radius-sm:10px;
+
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(84px + env(safe-area-inset-top,0px))}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:var(--body);font-size:clamp(18px,1.15vw,20px);line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0}
+p{margin:0 0 1em}
+::selection{background:var(--accent);color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+.section{padding:var(--section) 0;border-top:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;margin-bottom:clamp(40px,6vw,72px);max-width:760px}
+.section-head h2{font-size:clamp(40px,6vw,76px)}
+.section-head p{color:var(--muted);font-size:1.05em;max-width:60ch;margin:0}
+
+.skip{position:absolute;left:-999px;top:12px;background:var(--accent);color:var(--ink);padding:10px 16px;border-radius:8px;font-family:var(--display);font-weight:600;z-index:100}
+.skip:focus{left:12px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Placeholder marker: anything with class="todo" still needs your real content.
+   Remove the class once you've filled it in. */
+.todo{border-bottom:2px dashed var(--accent);color:var(--accent)}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--display);font-weight:600;font-size:17px;
+  padding:14px 24px;border-radius:999px;text-decoration:none;cursor:pointer;
+  border:1.5px solid var(--accent);transition:transform .2s ease, background .2s ease, color .2s ease;
+}
+.btn-solid{background:var(--accent);color:var(--ink)}
+.btn-solid:hover{transform:translateY(-2px);background:#ffc35c}
+.btn-ghost{background:transparent;color:var(--paper);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
+  background:rgba(15,22,38,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .3s;
+}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;height:72px}
+.mark{margin-right:auto;font-family:var(--display);font-weight:800;font-size:22px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.mark span{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--accent);color:var(--ink);font-size:16px}
+.nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0}
+.nav ul a{font-family:var(--display);font-size:16px;text-decoration:none;color:var(--muted);transition:color .2s;padding:6px 0;position:relative}
+.nav ul a:hover,.nav ul a.active{color:var(--paper)}
+.nav ul a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--accent);border-radius:2px}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--paper);border-radius:10px;width:44px;height:44px;cursor:pointer}
+.menu-btn svg{width:20px;height:20px}
+
+@media (max-width:900px){
+  .menu-btn{display:grid;place-items:center}
+  .nav ul{
+    position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;
+    background:var(--ink);border-bottom:1px solid var(--line);
+    padding:8px var(--gutter) 20px;display:none;
+  }
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:14px 0;font-size:20px;border-bottom:1px solid var(--line)}
+  .nav ul a.active::after{display:none}
+}
+
+/* ---------- Hero ---------- */
+.hero{padding:clamp(56px,9vw,120px) 0 clamp(80px,10vw,140px);position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(40px,6vw,96px);align-items:center}
+.hero-name{font-family:var(--display);font-size:20px;color:var(--muted);margin:0 0 22px;display:flex;align-items:center;gap:12px}
+.hero-name .dot{width:9px;height:9px;border-radius:50%;background:#5BD08A;box-shadow:0 0 0 4px rgba(91,208,138,.18)}
+.hero h1{font-size:clamp(44px,6.2vw,88px);letter-spacing:-.035em;line-height:.98;margin-bottom:32px}
+.hero h1 .line{display:block}
+.hero-lede{font-size:clamp(19px,1.5vw,22px);color:var(--muted);max-width:52ch;margin-bottom:36px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px}
+
+/* Portrait: arch frame with soft marigold glow */
+.portrait{position:relative;justify-self:center;width:min(100%,400px)}
+.portrait::before{
+  content:"";position:absolute;inset:-12% -14%;
+  background:radial-gradient(closest-side,rgba(244,177,62,.38),rgba(244,177,62,0) 72%);
+  filter:blur(18px);z-index:0;
+}
+.portrait-frame{
+  position:relative;z-index:1;aspect-ratio:4/5;border-radius:200px 200px var(--radius-lg) var(--radius-lg);
+  overflow:hidden;border:1.5px solid rgba(244,177,62,.55);background:var(--ink-2);
+  display:grid;place-items:center;
+}
+.portrait-frame .initials{font-family:var(--display);font-weight:800;font-size:120px;color:var(--line);letter-spacing:-.04em}
+.portrait-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait-bubble{
+  position:absolute;z-index:2;left:-14%;bottom:12%;
+  background:var(--paper);color:var(--ink);border:none;cursor:pointer;text-align:left;
+  font-family:var(--display);font-size:15px;font-weight:600;line-height:1.3;
+  padding:14px 18px;border-radius:18px 18px 18px 4px;max-width:230px;
+  box-shadow:0 18px 40px rgba(0,0,0,.35);transition:transform .2s ease;
+}
+.portrait-bubble small{display:block;font-weight:400;color:#4a5068;margin-bottom:4px;font-size:13px}
+.portrait-bubble:hover{transform:translateY(-3px) rotate(-1deg)}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .portrait{order:-1;width:min(70%,300px);justify-self:start}
+  .portrait-bubble{left:auto;right:-30%;bottom:8%;max-width:200px}
+}
+@media (max-width:480px){
+  .portrait-bubble{right:-12%;font-size:14px}
+}
+
+/* ---------- About ---------- */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:start}
+.about-pull{font-family:var(--display);font-weight:600;font-size:clamp(28px,3.2vw,42px);line-height:1.15;letter-spacing:-.02em}
+.about-body p{color:var(--muted)}
+.about-body p strong{color:var(--paper);font-weight:500}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;margin-top:32px}
+.facts div{background:var(--ink);padding:18px 20px}
+.facts dt{font-family:var(--display);font-size:14px;color:var(--muted)}
+.facts dd{margin:4px 0 0;font-family:var(--display);font-weight:600;font-size:17px;line-height:1.3}
+@media (max-width:800px){.about-grid{grid-template-columns:1fr}}
+
+/* ---------- Experience timeline ---------- */
+.xp{list-style:none;margin:0;padding:0;position:relative}
+.xp::before{content:"";position:absolute;left:180px;top:10px;bottom:10px;width:1px;background:var(--line)}
+.xp-item{display:grid;grid-template-columns:180px 1fr;gap:0 48px;padding:0 0 64px;position:relative}
+.xp-item:last-child{padding-bottom:0}
+.xp-item::before{
+  content:"";position:absolute;left:174px;top:10px;width:13px;height:13px;border-radius:50%;
+  background:var(--ink);border:2px solid var(--muted);
+}
+.xp-item.current::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 6px var(--accent-soft)}
+.xp-date{font-family:var(--display);font-size:16px;color:var(--muted);padding-right:24px;padding-top:2px}
+.xp-body h3{font-size:clamp(24px,2.4vw,32px);margin-bottom:6px}
+.xp-org{font-family:var(--display);color:var(--accent);font-size:17px;margin-bottom:16px}
+.xp-body ul{margin:0 0 18px;padding-left:1.1em;color:var(--muted);max-width:68ch}
+.xp-body li{margin-bottom:6px}
+.xp-takeaway{
+  font-style:italic;border-left:3px solid var(--accent);padding:4px 0 4px 18px;margin:0;max-width:62ch;
+}
+.xp-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.xp-tags li{font-family:var(--display);font-size:14px;padding:5px 12px;border-radius:999px;background:var(--ink-2);border:1px solid var(--line);color:var(--paper)}
+.xp-range{color:var(--muted);max-width:68ch}
+@media (max-width:720px){
+  .xp::before{left:6px}
+  .xp-item{grid-template-columns:1fr;padding-left:36px}
+  .xp-item::before{left:0}
+  .xp-date{padding:0 0 8px}
+}
+
+/* ---------- Projects ---------- */
+.feature{
+  display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(28px,4vw,56px);
+  background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:clamp(28px,4vw,56px);margin-bottom:28px;position:relative;overflow:hidden;
+  transition:border-color .3s ease, transform .3s ease;
+}
+.feature::after{
+  content:"";position:absolute;right:-120px;top:-120px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(244,177,62,.18),transparent);pointer-events:none;
+}
+.feature:hover{border-color:rgba(244,177,62,.6)}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-size:14px;color:var(--muted);margin-bottom:16px}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.status.live::before{background:#5BD08A}
+.status.wip::before{background:var(--accent)}
+.feature h3{font-size:clamp(30px,3.4vw,46px);margin-bottom:16px}
+.feature > div > p{color:var(--muted)}
+.case{display:grid;gap:22px;margin:0}
+.case div{border-top:1px solid var(--line);padding-top:16px}
+.case dt{font-family:var(--display);font-weight:600;font-size:16px;color:var(--accent);margin-bottom:4px}
+.case dd{margin:0;color:var(--paper)}
+
+.projects{display:grid;grid-template-columns:repeat(6,1fr);gap:28px}
+.project{
+  grid-column:span 3;background:transparent;border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:32px;display:flex;flex-direction:column;
+  transition:background .25s ease,border-color .25s ease,transform .25s ease;
+}
+.project:nth-child(3n){grid-column:span 6}
+.project:hover,.project:focus-within{background:var(--ink-2);border-color:rgba(244,177,62,.55);transform:translateY(-4px)}
+.project h3{font-size:clamp(24px,2.2vw,30px);margin-bottom:12px}
+.project .case{gap:14px;margin-top:auto;padding-top:12px}
+.project .case dd{color:var(--muted);font-size:.95em}
+.project:nth-child(3n) .case{grid-template-columns:repeat(3,1fr);gap:28px}
+.project-link{font-family:var(--display);font-weight:600;color:var(--accent);margin-top:20px;text-decoration:none;align-self:flex-start;border-bottom:1.5px solid transparent}
+.project-link:hover{border-bottom-color:var(--accent)}
+@media (max-width:900px){
+  .feature{grid-template-columns:1fr}
+  .project,.project:nth-child(3n){grid-column:span 6}
+  .project:nth-child(3n) .case{grid-template-columns:1fr;gap:14px}
+}
+
+/* ---------- How I use AI ---------- */
+.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:step;border-top:1px solid var(--line)}
+.step{padding:32px 28px 8px 0;position:relative;counter-increment:step}
+.step + .step{padding-left:28px;border-left:1px solid var(--line)}
+.step::before{
+  content:counter(step);display:block;font-family:var(--display);font-weight:800;font-size:64px;line-height:1;
+  color:transparent;-webkit-text-stroke:1.5px var(--accent);margin-bottom:20px;
+}
+.step h3{font-size:24px;margin-bottom:10px}
+.step p{color:var(--muted);font-size:.95em}
+.proof{
+  margin-top:clamp(40px,6vw,64px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;
+  background:var(--accent);color:var(--ink);border-radius:var(--radius-lg);padding:clamp(28px,4vw,44px);
+}
+.proof p{font-family:var(--display);font-weight:600;font-size:clamp(22px,2.4vw,30px);line-height:1.2;margin:0;max-width:30ch;letter-spacing:-.01em}
+.proof .btn{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.proof .btn:hover{transform:translateY(-2px)}
+@media (max-width:900px){
+  .workflow{grid-template-columns:1fr 1fr}
+  .step:nth-child(3){padding-left:0;border-left:none}
+  .step:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:560px){
+  .workflow{grid-template-columns:1fr}
+  .step,.step + .step{padding-left:0;border-left:none}
+  .step + .step{border-top:1px solid var(--line)}
+}
+
+/* ---------- Skills ---------- */
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+.skill-group{background:var(--ink);padding:clamp(28px,3.5vw,44px)}
+.skill-group h3{font-size:clamp(22px,2vw,28px);margin-bottom:8px}
+.skill-group > p{color:var(--muted);font-size:.95em;margin-bottom:20px}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0}
+.chips li{font-family:var(--display);font-size:15px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);transition:border-color .2s,color .2s}
+.chips li:hover{border-color:var(--accent);color:var(--accent)}
+@media (max-width:760px){.skills{grid-template-columns:1fr}}
+
+/* ---------- Journey ---------- */
+.journey{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px;counter-reset:stop;position:relative}
+.journey::before{content:"";position:absolute;left:0;right:0;top:23px;height:2px;background:linear-gradient(90deg,var(--line),var(--accent))}
+.stop{counter-increment:stop;position:relative}
+.stop::before{
+  content:counter(stop);position:relative;z-index:1;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
+  background:var(--ink);border:2px solid var(--line);font-family:var(--display);font-weight:800;font-size:18px;margin-bottom:20px;
+}
+.stop.here::before{border-color:var(--accent);color:var(--accent)}
+.stop.next::before{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.stop-place{font-family:var(--display);font-size:14px;color:var(--muted);margin-bottom:4px}
+.stop h3{font-size:20px;line-height:1.15;margin-bottom:8px}
+.stop p{font-size:.9em;color:var(--muted);margin:0}
+@media (max-width:1000px){
+  .journey{grid-template-columns:1fr;gap:0}
+  .journey::before{left:23px;right:auto;top:0;bottom:0;width:2px;height:auto;background:linear-gradient(180deg,var(--line),var(--accent))}
+  .stop{display:grid;grid-template-columns:48px 1fr;gap:0 24px;padding-bottom:36px}
+  .stop::before{grid-row:span 3;margin:0}
+}
+
+/* ---------- Contact ---------- */
+.contact{text-align:left}
+.contact h2{font-size:clamp(44px,8vw,120px);letter-spacing:-.04em;line-height:.95;margin-bottom:28px;max-width:12ch}
+.contact-email{
+  display:inline-block;font-family:var(--display);font-weight:600;font-size:clamp(22px,3.4vw,44px);
+  color:var(--accent);text-decoration:none;border-bottom:2px solid rgba(244,177,62,.4);margin-bottom:44px;word-break:break-all;
+  transition:border-color .2s;
+}
+.contact-email:hover{border-bottom-color:var(--accent)}
+.contact-links{display:flex;flex-wrap:wrap;gap:14px}
+.contact p{color:var(--muted);max-width:56ch;margin-bottom:28px}
+
+footer{border-top:1px solid var(--line);padding:32px 0 40px;color:var(--muted);font-family:var(--display);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* ---------- Scroll reveal (subtle, disabled for reduced motion) ---------- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.hero .stagger{opacity:0;transform:translateY(22px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero .stagger:nth-child(2){animation-delay:.08s}
+.hero .stagger:nth-child(3){animation-delay:.16s}
+.hero .stagger:nth-child(4){animation-delay:.24s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* =========================================================
+   CHAT WIDGET: "Ask SG's AI"
+   ========================================================= */
+.chat-launch{
+  position:fixed;z-index:60;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:10px;background:var(--accent);color:var(--ink);border:none;cursor:pointer;
+  font-family:var(--display);font-weight:600;font-size:16px;padding:14px 20px 14px 16px;border-radius:999px;
+  box-shadow:0 14px 36px rgba(0,0,0,.4),0 0 0 6px rgba(244,177,62,.12);transition:transform .2s ease;
+}
+.chat-launch:hover{transform:translateY(-2px)}
+.chat-launch svg{width:22px;height:22px}
+.chat-launch[aria-expanded="true"]{display:none}
+
+.chat{
+  position:fixed;z-index:70;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  width:min(410px,calc(100vw - 40px));height:min(620px,calc(100dvh - 120px));
+  background:var(--ink-2);border:1px solid var(--line);border-radius:24px;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.55);
+  transform-origin:bottom right;transition:opacity .25s ease, transform .25s ease;
+}
+.chat[hidden]{display:flex;opacity:0;transform:scale(.94) translateY(10px);pointer-events:none;visibility:hidden}
+.chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.chat-avatar{width:40px;height:40px;border-radius:12px;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:15px;flex:none}
+.chat-head h2{font-size:18px;letter-spacing:-.01em}
+.chat-head p{margin:0;font-family:var(--display);font-size:13px;color:var(--muted)}
+.chat-close{margin-left:auto;background:none;border:1px solid var(--line);color:var(--paper);border-radius:10px;width:38px;height:38px;cursor:pointer;display:grid;place-items:center}
+.chat-close:hover{border-color:var(--accent)}
+.chat-log{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.msg{max-width:86%;padding:11px 15px;border-radius:16px;font-family:var(--display);font-size:15.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.msg.bot{background:var(--ink-3);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.user{background:var(--accent);color:var(--ink);border-bottom-right-radius:4px;align-self:flex-end}
+.msg.typing{display:flex;gap:5px;padding:15px}
+.msg.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.msg.typing span:nth-child(2){animation-delay:.15s}.msg.typing span:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.chat-suggest{display:flex;gap:8px;overflow-x:auto;padding:0 18px 12px;scrollbar-width:none}
+.chat-suggest::-webkit-scrollbar{display:none}
+.chat-suggest button{flex:none;background:transparent;border:1px solid var(--line);color:var(--paper);border-radius:999px;padding:8px 13px;font-family:var(--display);font-size:14px;cursor:pointer}
+.chat-suggest button:hover{border-color:var(--accent);color:var(--accent)}
+.chat-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.chat-form input{
+  flex:1;min-width:0;background:var(--ink);border:1px solid var(--line);color:var(--paper);border-radius:12px;
+  padding:12px 14px;font-family:var(--display);font-size:16px;
+}
+.chat-form input::placeholder{color:#7d869c}
+.chat-form input:focus{outline:none;border-color:var(--accent)}
+.chat-form button{background:var(--accent);color:var(--ink);border:none;border-radius:12px;width:48px;cursor:pointer;display:grid;place-items:center}
+.chat-form button:disabled{opacity:.5;cursor:not-allowed}
+.chat-note{margin:0;padding:0 16px 12px;font-family:var(--display);font-size:12px;color:#8a92a8}
+@media (max-width:520px){
+  .chat{right:0;bottom:0;width:100vw;height:100dvh;border-radius:0;border:none;padding-top:env(safe-area-inset-top,0px)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.hero .stagger{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="SG, back to top"><span>SG</span>Gaius Soetan</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav aria-label="Main">
+      <ul id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#ai">How I use AI</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="hero-name stagger"><span class="dot" aria-hidden="true"></span>Gaius Soetan, SG. AI solutions developer in Manchester.</p>
+      <!-- ✏️ EDIT: your positioning statement -->
+      <h1 class="stagger">
+        <span class="line">I build AI that</span>
+        <span class="line">real businesses</span>
+        <span class="line">can actually use.</span>
+      </h1>
+      <p class="hero-lede stagger">Chatbots and practical AI tools for small and growing businesses, plus the governance that makes them safe to rely on. Currently studying an MSc in Managing AI in Business at the University of Salford and working on AI tool governance at Salford Business School.</p>
+      <div class="hero-actions stagger">
+        <button class="btn btn-solid" type="button" data-open-chat>Ask my AI about me</button>
+        <a class="btn btn-ghost" href="#projects">See my work</a>
+      </div>
+    </div>
+
+    <div class="portrait">
+      <div class="portrait-frame">
+        <span class="initials" aria-hidden="true">SG</span>
+        <!-- ✏️ EDIT PHOTO: put your photo next to index.html and name it sg-photo.jpg
+             (or change the src below). Portrait crop, ~800×1000px works best.
+             If the file is missing, the "SG" initials show instead. -->
+        <img src="sg-photo.jpg" alt="Portrait of Gaius Soetan (SG)" width="800" height="1000" fetchpriority="high" onerror="this.remove()">
+      </div>
+      <button class="portrait-bubble" type="button" data-open-chat data-question="What are you working on right now?">
+        <small>Ask SG's AI</small>What are you working on right now?
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about">
+  <div class="wrap about-grid reveal">
+    <div>
+      <div class="section-head" style="margin-bottom:28px"><h2>About</h2></div>
+      <p class="about-pull">Most businesses don't need more AI hype. They need one tool that saves real hours, works for the people using it, and doesn't create new risks. That's the gap I work in.</p>
+    </div>
+    <div class="about-body">
+      <!-- ✏️ EDIT: your About text -->
+      <p>I'm Gaius Soetan, but everyone calls me SG. I started in <strong>IT support at Radio Nigeria</strong>, fixing problems for people who just needed their systems to work. That habit stuck: I judge technology by whether the person in front of it can use it.</p>
+      <p>Today I'm doing an <strong>MSc in Managing AI in Business at the University of Salford</strong>, and interning on how Salford Business School selects, approves, monitors and retires AI tools. On my own time I'm working through a structured Python-to-chatbot plan, building towards conversational AI for real customers.</p>
+      <p>I've also worked security, delivery and care roles in the UK. They taught me how to stay calm, read people quickly and keep promises, which turns out to matter a lot when you're asking a business to trust a new system.</p>
+      <dl class="facts">
+        <div><dt>Based in</dt><dd>Manchester, UK</dd></div>
+        <div><dt>Studying</dt><dd>MSc Managing AI in Business, Salford</dd></div>
+        <div><dt>Background</dt><dd>BSc Computer Science, Crawford University</dd></div>
+        <div><dt>Focus</dt><dd>AI chatbots and responsible AI</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Experience</h2>
+      <p>Newest first. The technical roles show what I can build. The others show why it works for real users.</p>
+    </div>
+
+    <ol class="xp">
+      <!-- ✏️ EDIT: experience item -->
+      <li class="xp-item current reveal">
+        <div class="xp-date">May 2026 to now</div>
+        <div class="xp-body">
+          <h3>AI Tool Governance and Licensing Intern</h3>
+          <p class="xp-org">Salford Business School, AI Empowered Learning project</p>
+          <ul>
+            <li>Designing a governance model for how the School selects, approves, monitors and retires AI tools.</li>
+            <li>Building an AI tool register and dashboard in Power BI and the Power Platform.</li>
+            <li>Gathering licensing terms and ethical approval requirements, and writing the governance report.</li>
+            <!-- ✏️ EDIT: replace with one concrete outcome, then remove class="todo" -->
+            <li><span class="todo">[Add one concrete outcome, e.g. "Mapped 20+ AI tools into a single register now used by the project team"]</span></li>
+          </ul>
+          <ul class="xp-tags" aria-label="Skills used">
+            <li>Responsible AI</li><li>AI governance</li><li>Power BI</li><li>Power Platform</li><li>Stakeholder work</li>
+          </ul>
+          <p class="xp-takeaway">Takeaway: good AI adoption is a process, not a purchase. Someone has to decide what's allowed, and why.</p>
+        </div>
+      </li>
+
+      <!-- ✏️ EDIT: experience item (add dates) -->
+      <li class="xp-item reveal">
+        <div class="xp-date"><span class="todo">[Start] to [End]</span></div>
+        <div class="xp-body">
+          <h3>Event Steward and Security Officer</h3>
+          <p class="xp-org">Blackstar Security, SIA licensed</p>
+          <ul>
+            <li>Kept crowds and venues safe at live events, often under time pressure.</li>
+            <li>Handled the public calmly, from directions to de-escalation.</li>
+          </ul>
+          <p class="xp-takeaway">Takeaway: when things go wrong, people remember how calmly you handled it. Same goes for software.</p>
+        </div>
+      </li>
+
+      <!-- ✏️ EDIT: experience item (add dates) -->
+      <li class="xp-item reveal">
+        <div class="xp-date"><span class="todo">[Start] to [End]</span></div>
+        <div class="xp-body">
+          <h3>IT Support</h3>
+          <p class="xp-org">Federal Radio Corporation of Nigeria (Radio Nigeria)</p>
+          <ul>
+            <li>Troubleshot hardware, software and network issues to keep broadcast operations running.</li>
+            <li>Supported non-technical staff, explaining fixes in plain language.</li>
+          </ul>
+          <p class="xp-takeaway">Takeaway: the best fix is one the user understands. I design AI tools with that in mind.</p>
+        </div>
+      </li>
+
+      <!-- ✏️ EDIT: optional. Delete this item if you don't want it -->
+      <li class="xp-item reveal">
+        <div class="xp-date">Alongside study</div>
+        <div class="xp-body">
+          <h3>Delivery, teaching and care roles</h3>
+          <p class="xp-org">Evri, teaching assistant and care support</p>
+          <p class="xp-range">Delivery to deadlines, supporting learners, and caring for people who depend on you. Different jobs, same lesson: be reliable and pay attention to the person in front of you.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Projects</h2>
+      <p>Short case studies: the problem, what I built, and where it landed.</p>
+    </div>
+
+    <!-- ✏️ EDIT: featured project -->
+    <article class="feature reveal">
+      <div>
+        <p class="status wip">In progress, internship</p>
+        <h3>AI tool governance model and register</h3>
+        <p>A clear, repeatable way for a business school to decide which AI tools staff and students can use, and to keep track of them once they're in use.</p>
+      </div>
+      <dl class="case">
+        <div><dt>Problem</dt><dd>AI tools were being adopted faster than anyone could check their licensing, data handling or ethics. There was no single view of what was in use.</dd></div>
+        <div><dt>What I built</dt><dd>A lifecycle model (select, approve, monitor, retire), and a register and dashboard in Power BI and the Power Platform that tracks each tool's status, licence and approval.</dd></div>
+        <!-- ✏️ EDIT: outcome -->
+        <div><dt>Outcome</dt><dd><span class="todo">[Add outcome, e.g. "Governance report submitted to the project lead; register adopted as the team's reference"]</span></dd></div>
+      </dl>
+    </article>
+
+    <div class="projects">
+      <!-- ✏️ EDIT: project card -->
+      <article class="project reveal">
+        <p class="status live">Client work, frontend prototype</p>
+        <h3>JazzCabConnect</h3>
+        <dl class="case">
+          <div><dt>Problem</dt><dd>Riders compare taxi options across several apps before booking.</dd></div>
+          <div><dt>What I built</dt><dd>A taxi aggregator frontend prototype for a client, with booking flows designed around quick comparison.</dd></div>
+          <div><dt>Outcome</dt><dd>A working prototype the client can test with users and take to development.</dd></div>
+        </dl>
+        <!-- ✏️ EDIT: link to repo or live demo, or delete this line -->
+        <a class="project-link" href="https://github.com/SG01-Dev" target="_blank" rel="noopener">View on GitHub</a>
+      </article>
+
+      <!-- ✏️ EDIT: project card -->
+      <article class="project reveal">
+        <p class="status wip">MSc dissertation</p>
+        <h3>AI for a family-run auto parts business</h3>
+        <dl class="case">
+          <div><dt>Problem</dt><dd>Small family firms hear a lot about AI but rarely get advice that fits their size, budget or skills.</dd></div>
+          <div><dt>What I'm doing</dt><dd>Researching where AI can realistically help: stock, customer enquiries and day-to-day admin.</dd></div>
+          <div><dt>Outcome</dt><dd>A practical implementation roadmap a small business could actually follow.</dd></div>
+        </dl>
+      </article>
+
+      <!-- ✏️ EDIT: chatbot project (full width card) -->
+      <article class="project reveal">
+        <p class="status wip">In progress</p>
+        <h3>AI customer chatbot</h3>
+        <dl class="case">
+          <div><dt>Problem</dt><dd><span class="todo">[What problem does it solve? e.g. "Small shops lose enquiries out of hours"]</span></dd></div>
+          <div><dt>What I'm building</dt><dd><span class="todo">[What it does and the tech, e.g. "A Python chatbot that answers FAQs from a business's own documents"]</span></dd></div>
+          <div><dt>Stage</dt><dd><span class="todo">[Where it's at, e.g. "Prototype working locally, testing with sample data"]</span></dd></div>
+        </dl>
+      </article>
+
+      <!-- ✏️ EDIT: project card -->
+      <article class="project reveal">
+        <p class="status">Research, MSc module</p>
+        <h3>Responsible Technologies</h3>
+        <dl class="case">
+          <div><dt>Problem</dt><dd>Ethical AI risks are easy to name and hard to act on.</dd></div>
+          <div><dt>What I made</dt><dd>A research journal and academic poster examining an ethical AI challenge and what responsible practice looks like.</dd></div>
+          <div><dt>Outcome</dt><dd>A sharper eye for risk that now shapes how I design and assess AI tools.</dd></div>
+        </dl>
+      </article>
+
+      <!-- ✏️ EDIT: project card -->
+      <article class="project reveal">
+        <p class="status wip">Self-study, ongoing</p>
+        <h3>16 weeks from Python to chatbots</h3>
+        <dl class="case">
+          <div><dt>Goal</dt><dd>Go from solid Python foundations to building and deploying my own AI chatbots.</dd></div>
+          <div><dt>Built so far</dt><dd><span class="todo">[List what you've built, e.g. "CLI quiz app, API data scraper, first LLM-powered Q&amp;A bot"]</span></dd></div>
+          <div><dt>Next</dt><dd>Connecting chatbots to real business data and deploying them for users.</dd></div>
+        </dl>
+        <a class="project-link" href="https://github.com/SG01-Dev" target="_blank" rel="noopener">Follow along on GitHub</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW I USE AI ================= -->
+<section class="section" id="ai">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>How I use AI</h2>
+      <p>AI speeds up my work. It doesn't replace my judgement. This is the loop I run on everything, including this website.</p>
+    </div>
+    <div class="workflow reveal">
+      <div class="step">
+        <h3>Frame the problem</h3>
+        <p>Before I prompt anything, I write down who it's for, what "done" looks like, and what must not go wrong.</p>
+      </div>
+      <div class="step">
+        <h3>Prompt with context</h3>
+        <p>I give the model the role, the facts, the constraints and examples of good output, instead of a one-line request.</p>
+      </div>
+      <div class="step">
+        <h3>Iterate in small steps</h3>
+        <p>I build in pieces, test each one, and refine the prompt or the code based on what actually happened.</p>
+      </div>
+      <div class="step">
+        <h3>Check it critically</h3>
+        <p>I verify facts, test edge cases, and look for bias, privacy and licensing issues before anything reaches a user.</p>
+      </div>
+    </div>
+    <div class="proof reveal">
+      <p>The assistant on this page runs on Claude, briefed only on my real background, and told to say so when it doesn't know.</p>
+      <button class="btn" type="button" data-open-chat>Try it now</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Skills</h2>
+      <p>Grouped by the kind of problem they solve.</p>
+    </div>
+    <!-- ✏️ EDIT: skills -->
+    <div class="skills reveal">
+      <div class="skill-group">
+        <h3>AI and chatbots</h3>
+        <p>Building conversational tools people want to use.</p>
+        <ul class="chips"><li>Prompt engineering</li><li>LLM APIs (Claude, OpenAI)</li><li>Chatbot design</li><li>Conversation flows</li><li>Testing AI output</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3>AI governance and responsible AI</h3>
+        <p>Making AI safe to adopt and easy to defend.</p>
+        <ul class="chips"><li>AI tool lifecycle</li><li>Licensing review</li><li>Ethical approval</li><li>Risk assessment</li><li>Power BI</li><li>Power Platform</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3>Python and web development</h3>
+        <p>Turning ideas into things you can click.</p>
+        <ul class="chips"><li>Python</li><li>HTML and CSS</li><li>JavaScript</li><li>APIs</li><li>Git and GitHub</li><li>Netlify</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3>Business and AI strategy</h3>
+        <p>Choosing where AI is worth it, and where it isn't.</p>
+        <ul class="chips"><li>AI adoption for SMEs</li><li>Process analysis</li><li>Stakeholder engagement</li><li>Report writing</li><li>IT support</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOURNEY ================= -->
+<section class="section" id="journey">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Journey</h2>
+      <p>From keeping a national broadcaster's systems running to shaping how a university governs AI.</p>
+    </div>
+    <ol class="journey reveal">
+      <li class="stop">
+        <p class="stop-place">Nigeria</p>
+        <h3>BSc Computer Science</h3>
+        <p>Crawford University. The fundamentals.</p>
+      </li>
+      <li class="stop">
+        <p class="stop-place">Nigeria</p>
+        <h3>IT support at Radio Nigeria</h3>
+        <p>Real systems, real users, real deadlines.</p>
+      </li>
+      <li class="stop">
+        <p class="stop-place">Manchester</p>
+        <h3>Working while building</h3>
+        <p>Security, delivery and care roles. Reliability, daily.</p>
+      </li>
+      <li class="stop">
+        <p class="stop-place">Salford, Jan 2026</p>
+        <h3>MSc Managing AI in Business</h3>
+        <p>Where tech meets strategy.</p>
+      </li>
+      <li class="stop here">
+        <p class="stop-place">Salford, May 2026</p>
+        <h3>AI governance internship</h3>
+        <p>Responsible AI in practice.</p>
+      </li>
+      <li class="stop next">
+        <p class="stop-place">Next</p>
+        <h3>AI chatbots for real businesses</h3>
+        <p>Your business could be the first.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section contact" id="contact">
+  <div class="wrap reveal">
+    <h2>Let's build something useful.</h2>
+    <p>Open to graduate roles, internships and freelance work in AI solutions, chatbots and AI governance. I reply within a day or two.</p>
+    <!-- ✏️ EDIT: email -->
+    <a class="contact-email" href="mailto:soetangaius@outlook.com">soetangaius@outlook.com</a>
+    <div class="contact-links">
+      <!-- ✏️ EDIT: links -->
+      <a class="btn btn-ghost" href="https://github.com/SG01-Dev" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/gaius-soetan-238a8a3a1" target="_blank" rel="noopener">LinkedIn</a>
+      <!-- ✏️ EDIT CV: put your CV next to index.html and name it cv.pdf -->
+      <a class="btn btn-solid" href="cv.pdf" download>Download my CV</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Gaius Soetan</span>
+    <span>Built by hand with AI as a co-pilot. Hosted on Netlify.</span>
+  </div>
+</footer>
+
+<!-- ================= CHAT WIDGET ================= -->
+<button class="chat-launch" id="chatLaunch" type="button" aria-expanded="false" aria-controls="chat" data-open-chat>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+  Ask SG's AI
+</button>
+
+<section class="chat" id="chat" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
+  <div class="chat-head">
+    <div class="chat-avatar" aria-hidden="true">SG</div>
+    <div>
+      <h2 id="chatTitle">Ask SG's AI</h2>
+      <p id="chatMode">Answers about my experience and work</p>
+    </div>
+    <button class="chat-close" id="chatClose" type="button" aria-label="Close chat">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="chat-log" id="chatLog" aria-live="polite"></div>
+  <div class="chat-suggest" id="chatSuggest" aria-label="Suggested questions"></div>
+  <div class="chat-form" id="chatForm">
+    <label for="chatInput" class="sr-only">Your question</label>
+    <input id="chatInput" type="text" autocomplete="off" maxlength="500" placeholder="Ask about my experience, projects or skills">
+    <button type="button" id="chatSend" aria-label="Send question">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+  <p class="chat-note">AI can get things wrong. For anything important, email me directly.</p>
+</section>
+
+<script>
+/* =========================================================
+   CHATBOT SETTINGS
+   The live AI runs through a Netlify Function so your API key
+   is never exposed in the browser. See netlify/functions/ask-sg.mjs.
+   Its system prompt (your background) lives in that file.
+   If the function isn't set up yet, the widget falls back to
+   the offline answers below so the site still works.
+   ========================================================= */
+const CHAT_ENDPOINT = "/api/ask-sg";
+
+// ✏️ EDIT: suggested questions shown in the chat
+const SUGGESTIONS = [
+  "What are you working on right now?",
+  "Tell me about your governance internship",
+  "What chatbots have you built?",
+  "Why hire SG?",
+  "How can I contact you?"
+];
+
+// ✏️ EDIT: offline fallback answers (used only if the AI function is unavailable)
+const FALLBACK = [
+  {k:["now","current","working on","right now","today"], a:"Right now SG is on the AI Tool Governance and Licensing internship at Salford Business School (since May 2026), designing how the School selects, approves, monitors and retires AI tools, and building a register in Power BI. Alongside that he's doing his MSc in Managing AI in Business and working through a 16-week Python-to-chatbot plan."},
+  {k:["governance","internship","intern","licens","power bi","register","dashboard","responsible"], a:"At Salford Business School's AI Empowered Learning project, SG is building a governance model for the full AI tool lifecycle (select, approve, monitor, retire), a register and dashboard in Power BI and the Power Platform, and the governance report. He also gathers licensing terms and ethical approval requirements, working closely with academics."},
+  {k:["chatbot","bot","conversational","llm","python","16","self-study","plan"], a:"Building AI chatbots for real businesses is SG's main goal. He's following a 16-week plan that goes from Python foundations to building and deploying chatbots, and this assistant is one example of how he puts AI to work. Check the Projects section for the latest stage."},
+  {k:["jazz","taxi","cab","aggregator","client"], a:"JazzCabConnect is a taxi aggregator app SG built for a client as a frontend prototype, designed so riders can compare options quickly before booking."},
+  {k:["dissertation","auto","parts","family","sme","small business"], a:"SG's MSc dissertation looks at how a family-run auto parts business could realistically adopt AI, for things like stock, customer enquiries and admin, with a roadmap a small firm could actually follow."},
+  {k:["msc","salford","study","degree","education","university","bsc","crawford"], a:"SG is studying an MSc in Managing AI in Business at the University of Salford (started January 2026). Before that he did a BSc in Computer Science at Crawford University in Nigeria."},
+  {k:["radio","it support","nigeria","troubleshoot"], a:"SG worked in IT support at the Federal Radio Corporation of Nigeria (Radio Nigeria), troubleshooting systems and supporting non-technical staff. It taught him to build things people can actually use."},
+  {k:["security","blackstar","sia","steward","evri","care","teaching"], a:"SG has worked as an SIA-licensed event steward and security officer with Blackstar Security, plus delivery, teaching assistant and care roles. They built his reliability, calm under pressure and people skills, which is exactly what makes AI tools work for real users."},
+  {k:["ethic","responsible tech","poster","journal"], a:"For his Responsible Technologies module, SG produced a research journal and poster on an ethical AI challenge. It sharpened how he assesses risk when designing AI tools."},
+  {k:["skill","stack","tech","tools","know"], a:"SG's skills fall into four groups: AI and chatbots (prompting, LLM APIs, chatbot design), AI governance (lifecycle, licensing, Power BI, Power Platform), Python and web development, and business and AI strategy."},
+  {k:["hire","why","strength","fit","role"], a:"SG combines technical skills with a business and governance lens: He can build an AI tool, explain it to non-technical users, and check that it's safe to use. And his non-tech jobs show he's reliable when it counts."},
+  {k:["contact","email","reach","linkedin","github","cv"], a:"Email SG at soetangaius@outlook.com, connect on LinkedIn (gaius-soetan-238a8a3a1), or see his code on GitHub (SG01-Dev). You can download his CV from the contact section."},
+  {k:["where","based","location","manchester","live"], a:"SG is based in Manchester, UK."}
+];
+
+/* ---------- UI helpers ---------- */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const nav = document.getElementById("nav");
+const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 10);
+window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+// Mobile menu
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+menuBtn.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+});
+navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  navLinks.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false");
+}));
+
+// Active nav link on scroll
+const sections = [...document.querySelectorAll("main section[id]")];
+const linkFor = id => navLinks.querySelector(`a[href="#${id}"]`);
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.querySelectorAll("a").forEach(a => a.classList.remove("active"));
+      const l = linkFor(e.target.id); if (l) l.classList.add("active");
+    }
+  });
+}, {rootMargin:"-45% 0px -50% 0px"});
+sections.forEach(s => spy.observe(s));
+
+// Subtle reveal on scroll
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const revealEls = document.querySelectorAll(".reveal");
+if (reduce || !("IntersectionObserver" in window)) {
+  revealEls.forEach(el => el.classList.add("in"));
+} else {
+  const ro = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); }
+  }), {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  revealEls.forEach(el => ro.observe(el));
+}
+
+/* ---------- Chat widget ---------- */
+const chat = document.getElementById("chat");
+const launch = document.getElementById("chatLaunch");
+const log = document.getElementById("chatLog");
+const input = document.getElementById("chatInput");
+const sendBtn = document.getElementById("chatSend");
+const suggestBox = document.getElementById("chatSuggest");
+const modeLabel = document.getElementById("chatMode");
+let history = [];          // {role, content} pairs sent to the AI
+let lastOpener = null;
+let busy = false;
+let greeted = false;
+
+function addMsg(text, who) {
+  const m = document.createElement("div");
+  m.className = "msg " + who;
+  m.textContent = text;
+  log.appendChild(m);
+  log.scrollTop = log.scrollHeight;
+  return m;
+}
+function showTyping() {
+  const t = document.createElement("div");
+  t.className = "msg bot typing"; t.setAttribute("aria-label", "SG's AI is typing");
+  t.innerHTML = "<span></span><span></span><span></span>";
+  log.appendChild(t); log.scrollTop = log.scrollHeight;
+  return t;
+}
+function renderSuggestions() {
+  suggestBox.innerHTML = "";
+  SUGGESTIONS.forEach(q => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = q;
+    b.addEventListener("click", () => ask(q));
+    suggestBox.appendChild(b);
+  });
+}
+function openChat(question) {
+  lastOpener = document.activeElement;
+  chat.hidden = false;
+  launch.setAttribute("aria-expanded", "true");
+  if (!greeted) {
+    addMsg("Hi, I'm SG's AI assistant. Ask me anything about his experience, projects or skills.", "bot");
+    renderSuggestions(); greeted = true;
+  }
+  if (question) ask(question); else setTimeout(() => input.focus(), 60);
+}
+function closeChat() {
+  chat.hidden = true;
+  launch.setAttribute("aria-expanded", "false");
+  (lastOpener && document.contains(lastOpener) ? lastOpener : launch).focus();
+}
+document.querySelectorAll("[data-open-chat]").forEach(el =>
+  el.addEventListener("click", () => openChat(el.dataset.question))
+);
+document.getElementById("chatClose").addEventListener("click", closeChat);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !chat.hidden) closeChat(); });
+
+// Small talk handled before topic matching (whole words only, so "they" doesn't count as "hey")
+const SMALL_TALK = [
+  {re:/^(hi|hey|hello|hiya|yo|sup|good (morning|afternoon|evening)|howdy)\b/i,
+   a:"Hey! I'm SG's AI assistant. Ask me about his AI governance internship, his projects, his skills, or how to get in touch."},
+  {re:/\b(how are you|how's it going|you good)\b/i,
+   a:"Doing well, thanks for asking! What would you like to know about SG's work?"},
+  {re:/\b(thanks|thank you|cheers|ta)\b/i,
+   a:"You're welcome! Anything else you'd like to know about SG?"},
+  {re:/\b(who are you|what are you|are you (a )?(bot|ai|real))\b/i,
+   a:"I'm an AI assistant SG built for this site. I answer questions about his experience, projects and skills. For anything important, email him at soetangaius@outlook.com."},
+  {re:/^(bye|goodbye|see ya|later)\b/i,
+   a:"Thanks for stopping by! You can reach SG at soetangaius@outlook.com."}
+];
+
+function fallbackAnswer(q) {
+  const s = q.toLowerCase().trim();
+  for (const t of SMALL_TALK) if (t.re.test(s)) return t.a;
+  let best = null, score = 0;
+  FALLBACK.forEach(item => {
+    const hits = item.k.filter(k => new RegExp("\\b" + k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(s)).length;
+    if (hits > score) { score = hits; best = item; }
+  });
+  return best ? best.a :
+    "I'm not sure about that one. I can tell you about SG's internship, projects, skills, education or how to contact him. Or tap one of the suggestions below.";
+}
+
+async function ask(question) {
+  const q = question.trim();
+  if (!q || busy) return;
+  busy = true; sendBtn.disabled = true;
+  addMsg(q, "user");
+  input.value = "";
+  history.push({role:"user", content:q});
+  history = history.slice(-10); // keep the conversation short
+  const typing = showTyping();
+
+  let reply = null;
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 20000);
+    const res = await fetch(CHAT_ENDPOINT, {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({messages:history}),
+      signal:ctrl.signal
+    });
+    clearTimeout(timer);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && typeof data.reply === "string" && data.reply.trim()) {
+        reply = data.reply.trim();
+        modeLabel.textContent = "Live AI, powered by Claude";
+      }
+    }
+  } catch (err) { /* fall through to offline answers */ }
+
+  if (!reply) {
+    reply = fallbackAnswer(q);
+    modeLabel.textContent = "Offline mode, quick answers";
+  }
+  typing.remove();
+  addMsg(reply, "bot");
+  history.push({role:"assistant", content:reply});
+  busy = false; sendBtn.disabled = false;
+  input.focus();
+}
+// Send on button click or Enter key (no <form> submit, which some previews and sandboxes block)
+sendBtn.addEventListener("click", () => ask(input.value));
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); ask(input.value); }
+});
+</script>
+</body>
+</html>
